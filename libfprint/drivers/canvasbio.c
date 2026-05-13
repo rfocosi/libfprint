@@ -5348,6 +5348,7 @@ fpi_device_canvasbio_class_init(FpiDeviceCanvasbioClass *klass)
     dev_class->verify  = dev_verify;
     dev_class->capture = dev_capture;
     dev_class->nr_enroll_stages = CB2000_NR_ENROLL_STAGES;
+    dev_class->temp_hot_seconds = -1;
 
     fpi_device_class_auto_initialize_features(dev_class);
 }
