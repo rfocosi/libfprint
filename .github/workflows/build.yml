@@ -1,0 +1,51 @@
+name: Build libfprint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            meson \
+            ninja-build \
+            pkg-config \
+            gcc \
+            g++ \
+            git \
+            libglib2.0-dev \
+            libgusb-dev \
+            libgudev-1.0-dev \
+            libgirepository1.0-dev \
+            libpixman-1-dev \
+            libssl-dev \
+            gtk-doc-tools \
+            libgtk-3-dev \
+            libpcap-dev \
+            python3-gi \
+            python3-cairo \
+            libxml2-utils
+
+      - name: Configure Meson
+        run: meson setup build -Ddrivers=canvasbio -Dintrospection=true -Ddoc=false
+
+      - name: Build
+        run: ninja -C build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libfprint-2-so
+          path: build/libfprint/libfprint-2.so.2.0.0
