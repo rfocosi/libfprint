@@ -44,8 +44,14 @@ jobs:
       - name: Build
         run: ninja -C build
 
+      - name: Stage Artifacts
+        run: |
+          mkdir -p staging
+          cp build/libfprint/libfprint-2.so.2.0.0 staging/
+          cp README-CANVASBIO.md staging/
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: libfprint-2-so
-          path: build/libfprint/libfprint-2.so.2.0.0
+          path: staging/
