@@ -153,6 +153,8 @@ driver_sources = {
         [ 'drivers/realtek/realtek.c' ],
     'focaltech_moc' :
         [ 'drivers/focaltech_moc/focaltech_moc.c' ],
+    'canvasbio' :
+        [ 'drivers/canvasbio.c' ],
 }
 
 helper_sources = {
